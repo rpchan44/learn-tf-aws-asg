@@ -1,0 +1,10 @@
+# Ignore everything
+*
+
+# But not these files...
+!.gitignore
+!main.tf
+!output.tf
+!user_data.sh
+# ...even if they are in subdirectories
+!*/
