@@ -10,7 +10,7 @@ provider "aws" {
 
 # VPC
 resource "aws_vpc" "devel" {
-  cidr_block = "10.0.0.0/23" # 512 IPs 
+  cidr_block = "10.100.0.0/16"
   tags = {
     Name = "devel-vpc"
   }
@@ -19,21 +19,21 @@ resource "aws_vpc" "devel" {
 # Creating 1st public subnet 
 resource "aws_subnet" "dev_subnet_1" {
   vpc_id                  = aws_vpc.devel.id
-  cidr_block              = "10.0.0.0/27" #32 IPs
+  cidr_block              = "10.100.0.0/20"
   availability_zone       = "ap-southeast-1a"
   map_public_ip_on_launch = true
 }
 # Creating 2nd public subnet 
 resource "aws_subnet" "dev_subnet_1a" {
   vpc_id                  = aws_vpc.devel.id
-  cidr_block              = "10.0.0.32/27" #32 IPs
+  cidr_block              = "10.100.16.0/20"
   availability_zone       = "ap-southeast-1b"
   map_public_ip_on_launch = true
 }
 # Creating 1st private subnet 
 resource "aws_subnet" "dev_subnet_2" {
   vpc_id                  = aws_vpc.devel.id
-  cidr_block              = "10.0.1.0/27" #32 IPs
+  cidr_block              = "10.100.32.0/20"
   map_public_ip_on_launch = false
   availability_zone       = "ap-southeast-1b"
 }
