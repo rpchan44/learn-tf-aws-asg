@@ -221,3 +221,22 @@ resource "aws_autoscaling_group" "dev_asg" {
     version = "$Latest"
   }
 }
+
+resource "aws_route53_zone" "private" {
+  name = "mentee-ron.local"
+  vpc {
+    vpc_id = aws_vpc.devel.id
+  }
+  depends_on = [aws_lb.dev_lb]
+}
+
+resource "aws_route53_record" "www" {
+  zone_id = aws_route53_zone.private.id
+  name    = "lb01.mentee-ron.local"
+  type    = "A"
+  alias {
+    name                   = aws_lb.dev_lb.dns_name
+    zone_id                = aws_lb.dev_lb.zone_id
+    evaluate_target_health = true
+  }
+}
